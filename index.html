@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f5f1">
+  <meta name="description" content="A smarter dinner service. Book your table, pre-order your meal, and follow every moment from the kitchen to your table.">
+  <title>TableTurn — Dinner, right on time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="TableTurn home">
+        <span class="brand-mark">t<span>.</span></span>
+        <span class="brand-name">tableturn<span class="brand-sub">DINING, REIMAGINED</span></span>
+      </a>
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview" data-section="overview"><span class="nav-icon">⌂</span>Overview</a>
+        <a class="nav-link" href="#booking" data-section="booking"><span class="nav-icon">＋</span>Book a table</a>
+        <a class="nav-link" href="#kitchen" data-section="kitchen"><span class="nav-icon">▤</span>Kitchen display<span class="nav-count" id="nav-ticket-count">0</span></a>
+        <a class="nav-link" href="#reservations" data-section="reservations"><span class="nav-icon">▣</span>Reservations</a>
+        <a class="nav-link" href="#analytics" data-section="analytics"><span class="nav-icon">↗</span>Analytics</a>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="service-card">
+        <div class="service-orb">✳</div>
+        <strong>Good evening</strong>
+        <p>Your dinner service is looking good. Let’s keep things moving.</p>
+        <span class="service-status"><span class="live-dot"></span> SERVICE LIVE</span>
+      </div>
+      <div class="sidebar-footer"><span class="avatar">S</span><span><strong>Spice & Sage</strong><small>Restaurant workspace</small></span><span class="more-dots">···</span></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="menu-toggle" aria-label="Open navigation">☰</button>
+        <div class="breadcrumb">Spice & Sage <span>/</span> <strong id="page-breadcrumb">Overview</strong></div>
+        <div class="topbar-right">
+          <span class="date-label" id="today-label"></span>
+          <button class="icon-button notification-button" aria-label="Notifications">♧<i></i></button>
+          <span class="avatar top-avatar">S</span>
+        </div>
+      </header>
+
+      <section class="page-section" id="overview">
+        <div class="welcome-row">
+          <div><p class="eyebrow">FRIDAY SERVICE <span class="eyebrow-dot"></span> OPEN NOW</p><h1>A better kind of <em>dinner rush.</em></h1><p class="lead">Everything in sync, from the first booking to the last bite.</p></div>
+          <a class="button button-dark" href="#booking"><span>＋</span> New reservation</a>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card"><div class="metric-top"><span>Tonight’s covers</span><span class="metric-icon peach">♧</span></div><div class="metric-value" id="metric-covers">—</div><div class="metric-foot"><span class="trend-up">↑ 12%</span> vs. last Friday</div><div class="sparkline spark-one"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Tables in service</span><span class="metric-icon lavender">▦</span></div><div class="metric-value"><span id="metric-tables">—</span><small> / 8</small></div><div class="metric-foot"><span class="metric-muted">Across all dinner slots</span></div><div class="progress-track"><span id="table-progress"></span></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Average table turn</span><span class="metric-icon mint">◷</span></div><div class="metric-value"><span id="metric-turn">—</span><small> min</small></div><div class="metric-foot"><span class="trend-up">↓ 18 min</span> from your monthly avg.</div><div class="sparkline spark-two"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Pre-orders ready</span><span class="metric-icon butter">✳</span></div><div class="metric-value" id="metric-preorders">—</div><div class="metric-foot"><span class="metric-muted">Kitchen is right on schedule</span></div><div class="mini-status"><span class="live-dot"></span> All stations active</div></article>
+        </div>
+
+        <div class="section-heading"><div><p class="eyebrow">YOUR EVENING AT A GLANCE</p><h2>Service overview</h2></div><a class="text-link" href="#analytics">Full analytics <span>↗</span></a></div>
+        <div class="overview-grid">
+          <article class="panel timeline-panel">
+            <div class="panel-heading"><div><h3>Tonight’s reservations</h3><p>Your floor, by arrival time</p></div><span class="panel-pill" id="reservation-count">0 bookings</span></div>
+            <div class="timeline" id="overview-timeline"></div>
+            <a class="panel-bottom-link" href="#reservations">View all reservations <span>→</span></a>
+          </article>
+          <article class="panel occupancy-panel">
+            <div class="panel-heading"><div><h3>Table occupancy</h3><p>Live floor availability</p></div><span class="live-badge"><span class="live-dot"></span> LIVE</span></div>
+            <div class="occupancy-summary"><strong id="occupancy-percent">0%</strong><span>occupied tonight</span></div>
+            <div class="table-map" id="table-map"></div>
+            <div class="map-legend"><span><i class="legend-dot occupied"></i>Reserved</span><span><i class="legend-dot available"></i>Available</span><span><i class="legend-dot arriving"></i>Arriving soon</span></div>
+          </article>
+        </div>
+
+        <div class="section-heading kitchen-preview-heading"><div><p class="eyebrow">THE PASS</p><h2>Up next in the kitchen</h2></div><a class="text-link" href="#kitchen">Open kitchen display <span>↗</span></a></div>
+        <div class="kitchen-preview" id="kitchen-preview"></div>
+      </section>
+
+      <section class="page-section content-section" id="booking">
+        <div class="section-intro"><p class="eyebrow">MAKE IT A NIGHT TO REMEMBER</p><h1>Save your seat.<br><em>We’ll save you time.</em></h1><p>Choose your table, pick your dishes, and arrive to a meal already in motion.</p></div>
+        <div class="booking-layout">
+          <div class="booking-main">
+            <article class="panel booking-panel">
+              <div class="step-heading"><span class="step-number">01</span><div><h2>Find your table</h2><p>Tell us when you’re joining us.</p></div></div>
+              <div class="booking-fields">
+                <label>DATE<input type="date" id="booking-date" required></label>
+                <label>PARTY SIZE<select id="party-size"><option value="1">1 guest</option><option value="2" selected>2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option></select></label>
+                <label>ARRIVAL TIME<select id="booking-time"></select></label>
+              </div>
+              <div class="availability-row"><span><span class="live-dot"></span> Available tables for your party</span><span id="availability-count">Checking…</span></div>
+              <div class="table-options" id="table-options"></div>
+              <p class="field-hint">Every reservation includes a 90-minute dining window. We’ll hold your table for 15 minutes after your arrival time.</p>
+            </article>
+
+            <article class="panel menu-panel">
+              <div class="step-heading"><span class="step-number">02</span><div><h2>Choose something lovely</h2><p>Pre-order now and we’ll time it to your arrival.</p></div></div>
+              <div class="menu-controls"><div class="category-tabs" id="category-tabs" role="group" aria-label="Filter menu categories"></div><label class="search-box"><span>⌕</span><input id="menu-search" type="search" placeholder="Find a dish…" aria-label="Search menu"></label></div>
+              <div class="diet-filters"><button class="diet-chip active" data-diet="All">All dishes</button><button class="diet-chip" data-diet="Veg">♧ Vegetarian</button><button class="diet-chip" data-diet="Non-Veg">Non-veg</button><button class="diet-chip" data-diet="Spicy">🌶 Spicy</button></div>
+              <div class="menu-grid" id="menu-grid"></div>
+            </article>
+            <article class="panel notes-panel"><div class="step-heading"><span class="step-number">03</span><div><h2>Anything we should know?</h2><p>Optional notes for our kitchen team.</p></div></div><textarea id="booking-notes" maxlength="240" placeholder="Allergies, dietary needs, or a special occasion…"></textarea><div class="notes-help">Your notes will be attached to your kitchen ticket.</div></article>
+          </div>
+          <aside class="panel cart-panel">
+            <div class="cart-title"><div><p class="eyebrow">YOUR EVENING</p><h2>Order summary</h2></div><span class="cart-count" id="cart-count">0</span></div>
+            <div class="cart-items" id="cart-items"><div class="cart-empty"><span>✳</span><strong>A little something?</strong><p>Your selected dishes will appear here.</p></div></div>
+            <div class="bill-breakdown" id="bill-breakdown"><div><span>Subtotal</span><span id="subtotal">₹0.00</span></div><div><span>GST <small>5%</small></span><span id="gst">₹0.00</span></div><div><span>Service charge <small>5%</small></span><span id="service-charge">₹0.00</span></div><div class="bill-total"><strong>Estimated total</strong><strong id="total">₹0.00</strong></div><p>Final bill may vary based on any additions at the restaurant.</p></div>
+            <label class="guest-name-label">YOUR NAME<input id="guest-name" type="text" maxlength="60" placeholder="e.g. Alex Morgan" autocomplete="name"></label>
+            <label class="guest-name-label">EMAIL ADDRESS<input id="guest-email" type="email" maxlength="120" placeholder="you@example.com" autocomplete="email"></label>
+            <button class="button button-dark button-full" id="reserve-button">Reserve & pre-order <span>→</span></button>
+            <p class="secure-note">♡ &nbsp;No payment needed to reserve</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page-section content-section" id="kitchen">
+        <div class="section-heading"><div><p class="eyebrow">THE PASS · LIVE SERVICE</p><h1>Kitchen <em>display.</em></h1><p class="lead">Every dish, fired at just the right moment.</p></div><div class="kds-clock"><span class="live-dot"></span> LIVE QUEUE <strong id="kds-time"></strong></div></div>
+        <div class="kds-summary" id="kds-summary"></div>
+        <div class="kds-columns"><div class="kds-column"><div class="kds-column-heading"><span class="status-dot pending-dot"></span><h2>Up next</h2><span id="pending-count">0</span></div><div id="pending-tickets" class="ticket-list"></div></div><div class="kds-column"><div class="kds-column-heading"><span class="status-dot cooking-dot"></span><h2>On the fire</h2><span id="cooking-count">0</span></div><div id="cooking-tickets" class="ticket-list"></div></div><div class="kds-column"><div class="kds-column-heading"><span class="status-dot ready-dot"></span><h2>Ready to run</h2><span id="ready-count">0</span></div><div id="ready-tickets" class="ticket-list"></div></div></div>
+      </section>
+
+      <section class="page-section content-section" id="reservations">
+        <div class="section-heading"><div><p class="eyebrow">THE GUEST LIST</p><h1>Reservations <em>tonight.</em></h1><p class="lead">Check in your guests and keep every table moving.</p></div><a href="#booking" class="button button-dark">＋ New reservation</a></div>
+        <div class="panel reservations-panel"><div class="reservation-toolbar"><div class="reservation-filters" id="reservation-filters"><button class="filter-button active" data-filter="All">All <span id="filter-all-count">0</span></button><button class="filter-button" data-filter="Upcoming">Upcoming</button><button class="filter-button" data-filter="Arrived">Arrived</button><button class="filter-button" data-filter="Completed">Completed</button></div><label class="search-box"><span>⌕</span><input id="reservation-search" type="search" placeholder="Search guests…" aria-label="Search reservations"></label></div><div class="table-scroll"><table class="reservation-table"><thead><tr><th>GUEST</th><th>ARRIVAL</th><th>PARTY</th><th>TABLE</th><th>PRE-ORDER</th><th>KITCHEN</th><th>STATUS</th><th></th></tr></thead><tbody id="reservation-rows"></tbody></table></div></div>
+      </section>
+
+      <section class="page-section content-section" id="analytics">
+        <div class="section-heading"><div><p class="eyebrow">A LITTLE SMARTER, EVERY SERVICE</p><h1>Numbers worth <em>noticing.</em></h1><p class="lead">A snapshot of how your dining room is performing.</p></div><span class="panel-pill">LIVE · TONIGHT</span></div>
+        <div class="analytics-grid">
+          <article class="panel analytics-card"><p class="eyebrow">TABLE OCCUPANCY</p><div class="analytics-number" id="analytics-occupancy">0%</div><p>of tonight’s table slots are booked</p><div class="occupancy-bars" id="occupancy-bars"></div><div class="chart-labels"><span>5 PM</span><span>6 PM</span><span>7 PM</span><span>8 PM</span><span>9 PM</span><span>10 PM</span></div></article>
+          <article class="panel analytics-card"><p class="eyebrow">AVERAGE DINING DURATION</p><div class="analytics-number"><span id="analytics-duration">—</span><small> min</small></div><p>Target is 90 minutes per sitting</p><div class="duration-meter"><span id="duration-meter"></span></div><div class="meter-label"><span>Faster turns</span><span>90 min target</span></div></article>
+          <article class="panel analytics-card"><p class="eyebrow">PRE-ORDER IMPACT</p><div class="analytics-number"><span id="analytics-preorder">0</span><small> covers</small></div><p>Guests with meals planned ahead</p><div class="impact-callout"><span>✳</span><div><strong>More prepared. Less waiting.</strong><small>Pre-orders help smooth kitchen peaks.</small></div></div></article>
+          <article class="panel analytics-card"><p class="eyebrow">BUSIEST ARRIVAL WINDOW</p><div class="analytics-number" id="peak-window">—</div><p>Based on reservations this evening</p><div class="peak-dots" id="peak-dots"></div><div class="chart-labels"><span>5 PM</span><span>6 PM</span><span>7 PM</span><span>8 PM</span><span>9 PM</span><span>10 PM</span></div></article>
+        </div>
+      </section>
+
+      <footer class="footer"><span>© <span id="footer-year">2026</span> TableTurn</span><span>Made for more memorable meals <span class="footer-heart">♥</span></span><a href="#overview">Back to top ↑</a></footer>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <dialog class="confirmation-dialog" id="confirmation-dialog">
+    <button class="dialog-close icon-button" id="dialog-close" aria-label="Close">×</button>
+    <div class="confirmation-content" id="confirmation-content"></div>
+  </dialog>
+</body>
+</html>
